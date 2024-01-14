@@ -21,6 +21,6 @@ public class User {
     private String username;
     private String password;
 
-    @ManyToOne
+    @ManyToMany
     private List<Role> roles;
 }

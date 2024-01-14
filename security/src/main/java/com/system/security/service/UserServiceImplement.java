@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 
 @Service
 public class UserServiceImplement implements UserService{
+
     public PasswordEncoder passwordEncoder(){
         return new BCryptPasswordEncoder();
     }
@@ -22,8 +23,8 @@ public class UserServiceImplement implements UserService{
             throw new Error("User exist");
         }
         user.setPassword(passwordEncoder().encode(user.getPassword()));
-        User createUser = repository.save(user);
+        User createdUser = repository.save(user);
 
-        return createUser;
+        return createdUser;
     }
 }
