@@ -33,7 +33,8 @@ public class CustomBasicAuthenticationFilter extends OncePerRequestFilter {
 
     @Override
     protected void doFilterInternal(HttpServletRequest request,
-                                    HttpServletResponse response, FilterChain filterChain) throws ServletException, IOException {
+                                    HttpServletResponse response, FilterChain filterChain)
+            throws ServletException, IOException {
         if (isBasicAunthentication(request)){
             String[] credentials = decodeBase64(getHeader(request)
                     .replace(BASIC, ""))
@@ -42,7 +43,7 @@ public class CustomBasicAuthenticationFilter extends OncePerRequestFilter {
             String username = credentials[0];
             String password = credentials[1];
 
-            User user = repository.findByUsername(username);
+            User user = repository.findByUsernameFetchRoles(username);
 
             if(user == null){
                 response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
@@ -75,8 +76,8 @@ public class CustomBasicAuthenticationFilter extends OncePerRequestFilter {
                 (userPrincipal, null, userPrincipal.getAuthorities());
     }
 
-    private boolean checkPassword(String userPassword, String loginPassword1) {
-        return passwordEncoder().matches(loginPassword1, userPassword);
+    private boolean checkPassword(String userPassword, String loginPassword) {
+        return passwordEncoder().matches(loginPassword, userPassword);
     }
 
     private String decodeBase64(String base64) {
@@ -88,6 +89,7 @@ public class CustomBasicAuthenticationFilter extends OncePerRequestFilter {
         String header = getHeader(request);
         return header != null && header.startsWith(BASIC);
     }
+
     private String getHeader(HttpServletRequest request){
         return request.getHeader(AUTHORIZATION);
     }
