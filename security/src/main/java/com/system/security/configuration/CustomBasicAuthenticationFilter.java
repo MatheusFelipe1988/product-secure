@@ -35,7 +35,7 @@ public class CustomBasicAuthenticationFilter extends OncePerRequestFilter {
     protected void doFilterInternal(HttpServletRequest request,
                                     HttpServletResponse response, FilterChain filterChain)
             throws ServletException, IOException {
-        if (isBasicAunthentication(request)){
+        if (isBasicAuthentication(request)){
             String[] credentials = decodeBase64(getHeader(request)
                     .replace(BASIC, ""))
                     .split(":");
@@ -85,7 +85,7 @@ public class CustomBasicAuthenticationFilter extends OncePerRequestFilter {
         return new String(decodeBytes);
     }
 
-    private boolean isBasicAunthentication(HttpServletRequest request) {
+    private boolean isBasicAuthentication(HttpServletRequest request) {
         String header = getHeader(request);
         return header != null && header.startsWith(BASIC);
     }

@@ -10,16 +10,16 @@ import java.util.stream.Collectors;
 
 @Getter
 public class UserPrincipal {
-    private String username;
-    private String password;
-    private Collection<? extends GrantedAuthority> authorities;
+    private final String username;
+    private final String password;
+    private final Collection<? extends GrantedAuthority> authorities;
 
     private UserPrincipal(User user){
         this.username = user.getUsername();
         this.password = user.getPassword();
 
         this.authorities = user.getRoles().stream().map(role -> {
-            return new SimpleGrantedAuthority("ROLE_ ".concat(role.getNome()));
+            return new SimpleGrantedAuthority("role".concat(role.getNome()));
         }).collect(Collectors.toList());
     }
 
