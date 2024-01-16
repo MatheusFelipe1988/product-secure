@@ -3,7 +3,6 @@ package com.system.security.controller;
 import com.system.security.domain.Produto;
 import com.system.security.service.ProdutoService;
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
@@ -17,7 +16,7 @@ public class ProdutoController {
     private final ProdutoService service;
 
     @PreAuthorize("hasRole('produto_SELECT')")
-    @GetMapping
+    @GetMapping("/list")
     public List<Produto> listAll(){
         return service.listAll();
     }

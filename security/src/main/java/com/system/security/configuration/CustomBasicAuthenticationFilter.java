@@ -52,6 +52,7 @@ public class CustomBasicAuthenticationFilter extends OncePerRequestFilter {
                 return;
             }
             boolean valid = checkPassword(user.getPassword(), password);
+
                 if(!valid) {
                     response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
                     response.getWriter().write("Password not match");

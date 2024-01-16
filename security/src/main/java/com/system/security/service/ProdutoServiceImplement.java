@@ -1,16 +1,16 @@
 package com.system.security.service;
 
 import com.system.security.domain.Produto;
-import com.system.security.repository.ProdutoRepository;
-import lombok.RequiredArgsConstructor;
+import com.system.security.repository.ProdutoRepository;;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 
 @Service
-@RequiredArgsConstructor
 public class ProdutoServiceImplement implements ProdutoService{
-    private final ProdutoRepository repository;
+    @Autowired
+    private ProdutoRepository repository;
     @Override
     public List<Produto> listAll() {
         return repository.findAll();
